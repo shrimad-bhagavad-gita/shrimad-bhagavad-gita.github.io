@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import { Routes, Route } from "react-router-dom"; // ✅ only Routes/Route
 import HomePage from "./home/HomePage";
 import AboutPage from "./about/AboutPage";
 import Header from "./common/Header";
@@ -12,44 +12,29 @@ import "react-toastify/dist/ReactToastify.css";
 import GroupsPage from "./groups/GroupsPage";
 import ManageGroupPage from './groups/ManageGroupPage';
 import CardView from "./cardview/cardview";
-// import AuthContext from "./AuthContext";
-// import Auth from './auth/Auth';
 import Callback from './Callback';
 
 class App extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      // auth: new Auth(this.props.history),
-
-    };
-  }
-
   render() {
-    // const { auth } = this.state;
     return (
-
-      <div className="dashboard-header ">
+      <div className="dashboard-header">
         <Header />
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            {/* <Route exact path="/home" component={HomePage} /> */}
-            <Route path="/callback" render={props => <Callback   {...props} />} />
-            <Route exact path="/about" component={AboutPage} />
-            <Route exact path="/groups" component={GroupsPage} />
-            <Route exact path="/group/:id" component={ManageGroupPage} />
-            <Route exact path="/group" component={ManageGroupPage} />
-            <Route exact path="/cards" component={CardPage} />
-            <Route exact path="/card/:id" component={ManageCardPage} />
-            <Route exact path="/card" component={ManageCardPage} />
-            <Route exact path="/cardview/:id" component={CardView} />
-            <Route exact component={PageNotFound} />
-          </Switch>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/callback" element={<Callback />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/groups" element={<GroupsPage />} />
+          <Route path="/group/:id" element={<ManageGroupPage />} />
+          <Route path="/group" element={<ManageGroupPage />} />
+          <Route path="/cards" element={<CardPage />} />
+          <Route path="/card/:id" element={<ManageCardPage />} />
+          <Route path="/card" element={<ManageCardPage />} />
+          <Route path="/cardview/:id" element={<CardView />} />
+          <Route path="*" element={<PageNotFound />} /> {/* ✅ catch-all */}
+        </Routes>
         <Footer />
         <ToastContainer autoClose={3000} hideProgressBar />
       </div>
-
     );
   }
 }

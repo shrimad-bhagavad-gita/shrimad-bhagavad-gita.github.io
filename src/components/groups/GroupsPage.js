@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import * as groupActions from "../../redux/actions/groupActions";
 import * as cardActions from "../../redux/actions/cardActions";
 import GroupList from "./GroupList";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
 
@@ -57,7 +57,7 @@ class GroupsPage extends Component {
                                     </div>
                                 </div>
                             </div>
-                            {this.state.redirectToAddGroupPage && <Redirect to="/group"></Redirect>}
+                            {this.state.redirectToAddGroupPage && <Navigate to="/group"></Navigate>}
 
                             {this.props.loading ?
                                 <Spinner /> : (

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from "prop-types";
 import * as cardActions from "../../redux/actions/cardActions";
 import CardList from "./CardList";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
 
@@ -57,7 +57,7 @@ class CardPage extends Component {
                                 </div>
                             </div>
 
-                            {this.state.redirectToAddCardPage && <Redirect to="/card"></Redirect>}
+                            {this.state.redirectToAddCardPage && <Navigate to="/card"></Navigate>}
 
                             {this.props.loading ?
                                 <Spinner /> : (
