@@ -11,7 +11,7 @@ const Datepicker = ({ name, label, onChange, placeholder, value, error }) => {
 
   return (
     <div className={wrapperClass}>
-      <label htmlFor={name}>{label}</label>
+      <label id={name}>{label}</label>
       <div className="field">
         <DatePicker
           selected={this.state.startDate}
