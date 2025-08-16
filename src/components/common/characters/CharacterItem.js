@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CardImg from "../../../img/card-img.jpg";
 
 const CharacterItem = ({ item }) => {
@@ -19,11 +19,6 @@ const CharacterItem = ({ item }) => {
       window.speechSynthesis.cancel();
       setIsPlaying(false);
     }
-  };
-
-  const handleStop = () => {
-    window.speechSynthesis.cancel();
-    setIsPlaying(false);
   };
 
   return (
@@ -53,19 +48,15 @@ const CharacterItem = ({ item }) => {
                 </a>
               </li>
 
-              <li className="list-inline-item">
-                <a href="#" onClick={handleSpeak}>
-                  <span>
-                    <i className={isPlaying ? "fa fa-stop-circle-o" : "fa fa-play"}></i>
-                  </span>
-                </a>
-              </li>
+              <button
+                type="button"
+                onClick={handleSpeak}
+                className="btn btn-link p-0"
+                aria-label={isPlaying ? "Stop speech" : "Play speech"}
+              >
+                <i className={isPlaying ? "fa fa-stop-circle-o" : "fa fa-play"}></i>
+              </button>
 
-              <li className="list-inline-item">
-                <a href="#" onClick={handleStop}>
-                  <span><i className="fa fa-stop-circle-o"></i></span>
-                </a>
-              </li>
             </ul>
           </figcaption>
         </figure>
