@@ -12,7 +12,7 @@ const SelectInput = ({
 }) => {
   return (
     <>
-      <label htmlFor={name}>{label}</label>
+      <label id={name}>{label}</label>
       <select
         id={name}
         name={name}

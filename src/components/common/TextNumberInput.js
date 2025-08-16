@@ -9,7 +9,7 @@ const TextNumberInput = ({ name, label, onChange, placeholder, value, error }) =
 
   return (
     <div className={wrapperClass}>
-      <label htmlFor={name}>{label}</label>
+      <label id={name}>{label}</label>
       <div className="field">
         <input
           type="number"
