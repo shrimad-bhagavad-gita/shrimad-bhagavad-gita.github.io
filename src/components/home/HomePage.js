@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import CharacterGrid from "../common/characters/CharacterGrid";
-import axios from 'axios'
 import SelectInput from "../common/SelectInput";
 import data from "../bg-data.json";
 const HomePage = () => {
@@ -37,10 +36,7 @@ const HomePage = () => {
                 fullListItems
             );
 
-        // setItems(prevCard => ({
-        //     ...prevCard,
-        //     [items]: itemFilter
-        // }));
+
     }
 
     function handleChange2(event) {
@@ -54,10 +50,7 @@ const HomePage = () => {
                 fullListItems
             );
 
-        // setItems(prevCard => ({
-        //     ...prevCard,
-        //     [items]: itemFilter
-        // }));
+
     }
 
     return (
@@ -143,19 +136,17 @@ const HomePage = () => {
                             <CharacterGrid isLoading={isLoading}
                                 items={items
                                     .filter(v => {
-                                    if (v.name.toLowerCase().indexOf(query) >= 0
-                                        || v.description.toLowerCase().indexOf(query) >= 0
-                                        || v.meaning.toLowerCase().indexOf(query) >= 0
-                                        || v.code.toLowerCase().indexOf(query) >= 0
-                                    ) {
-                                        return true;
-                                    }
-                                    return false;
-                                })
-                                .filter((val,i)=>i<108)
-                            
-                            }
-
+                                        if (v.name.toLowerCase().indexOf(query) >= 0
+                                            || v.description.toLowerCase().indexOf(query) >= 0
+                                            || v.meaning.toLowerCase().indexOf(query) >= 0
+                                            || v.code.toLowerCase().indexOf(query) >= 0
+                                        ) {
+                                            return true;
+                                        }
+                                        return false;
+                                    })
+                                    .filter((val, i) => i < 108)
+                                }
                             />
                         </div>
                     </div>
