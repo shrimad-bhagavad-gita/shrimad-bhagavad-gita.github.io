@@ -83,7 +83,7 @@ const CardForm = ({
                         </div>
                         <div className="form-row">
                             <div className="form-group col-md-4">
-                                <label htmlFor="iconSelect" className="col-form-label text-nowrap">Display icon</label>
+                                <label id="iconSelect" className="col-form-label text-nowrap">Display icon</label>
                                 <select id="iconSelect" className="form-control">
                                     <option value="bookmark">bookmark</option>
                                     <option value="bank">bank</option>
@@ -96,7 +96,7 @@ const CardForm = ({
                                 </select>
                             </div>
                             <div className="form-group col-md-4">
-                                <label htmlFor="groupBySelect" className="col-form-label text-nowrap">Expire Date</label>
+                                <label id="groupBySelect" className="col-form-label text-nowrap">Expire Date</label>
                                 <div style={{ marginTop: 0 }} >
                                     <DatePicker
                                         selected={startDate}

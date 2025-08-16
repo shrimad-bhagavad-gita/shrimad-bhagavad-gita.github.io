@@ -96,7 +96,7 @@ const GroupForm = ({
                                 />
                             </div>
                             <div className="form-group col-md-4">
-                                <label htmlFor="iconSelect" className="col-form-label text-nowrap"
+                                <label id="iconSelect" className="col-form-label text-nowrap"
                                     style={{ paddingTop: 0 }}
                                 >Map card</label>
                                 <Multiselect id="iconSelect"
@@ -120,7 +120,7 @@ const GroupForm = ({
                                     checked={true}
                                     onChange={handleInputChange}
                                 />
-                                <label className="form-check-label" htmlFor="isActive">
+                                <label className="form-check-label" id="isActive">
                                     &nbsp;&nbsp;Active
                     </label>
 

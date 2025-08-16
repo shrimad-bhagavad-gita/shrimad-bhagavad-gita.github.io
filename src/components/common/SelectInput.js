@@ -12,24 +12,22 @@ const SelectInput = ({
 }) => {
   return (
     <>
-      <label for="validationCustom01">{label}</label>
+      <label id={name}>{label}</label>
       <select
+        id={name}
         name={name}
-        // value={value}
+        value={value}
         onChange={onChange}
-        className="form-control">
+        className="form-control"
+      >
         <option value="">{defaultOption}</option>
-        {
-          options.map(option => {
-            return (
-              <option key={option.value} value={option.value}>
-                {option.text}
-              </option>
-            );
-          })
-        }
-      </select >
-      { error && <div className="valid-feedback">{error}</div>}
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.text}
+          </option>
+        ))}
+      </select>
+      {error && <div className="valid-feedback">{error}</div>}
     </>
   );
 };
