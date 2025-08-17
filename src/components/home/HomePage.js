@@ -28,14 +28,14 @@ const HomePage = () => {
         if (groupFilter) {
             setItems(fullListItems.filter((x) => groupFilter.cards.includes(x.id)));
         }
- 
+
         if (value === "") {
 
             setItems(fullListItems);
         }
-      
+
     }
- 
+
     function handleTabChange(tab) {
         setActiveTab(tab);
 
@@ -43,10 +43,10 @@ const HomePage = () => {
             // clear dropdown
             setSelectedGroupId("");
 
-            // bind to group 20
-            const group20 = groups.find(g => g.id === 20);
-            if (group20) {
-                setItems(fullListItems.filter((x) => group20.cards.includes(x.id)));
+            // bind to group 21
+            const group21 = groups.find(g => g.id === 21);
+            if (group21) {
+                setItems(fullListItems.filter((x) => group21.cards.includes(x.id)));
             }
         } else if (tab === "all") {
             setItems(fullListItems); // reset
@@ -56,11 +56,10 @@ const HomePage = () => {
     }
 
 
-    // derive the card ids for the selected group
     const selectedGroupCardIds = useMemo(() => {
         const idNum = Number(selectedGroupId);
         const grp = groups.find(g => g.id === idNum);
-        return grp?.cards ?? null; // null means "no group filter"
+        return grp?.cards ?? null;
     }, [groups, selectedGroupId]);
 
     // build the list to show
@@ -110,10 +109,13 @@ const HomePage = () => {
                                                         label="Solution"
                                                         defaultOption="Choose solution to your problem"
                                                         value={selectedGroupId}
-                                                        options={groups.map(g => ({
-                                                            value: g.id,
-                                                            text: g.name
-                                                        }))}
+                                                        options={groups
+                                                            .filter(g => g.id !== 21)  
+                                                            .map(g => ({
+                                                                value: g.id,
+                                                                text: g.name
+                                                            }))
+                                                        }
                                                         onChange={handleChange}
                                                     />
                                                 </div>

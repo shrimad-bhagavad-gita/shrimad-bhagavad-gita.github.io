@@ -172,11 +172,20 @@
                 237,238,258,267
             ]
         },
+         {
+            "name": "Death of loved one",
+            "description": "Death of loved one",
+            "isActive": true,
+            "id": 20,
+            "cards": [
+                59,66,68,71,73
+            ]
+        },
         {
             "name": "Memorization",
             "description": "Memorization",
             "isActive": true,
-            "id": 20,
+            "id": 21,
             "cards": [
                 48,
                 53,
