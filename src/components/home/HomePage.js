@@ -10,8 +10,8 @@ const HomePage = () => {
     const [groups, setGroups] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [query, setQuery] = useState("");
-    const [selectedGroupId, setSelectedGroupId] = useState(""); // <-- track dropdown
-    const [activeTab, setActiveTab] = useState("all"); // all | memorization | favorite
+    const [selectedGroupId, setSelectedGroupId] = useState("");
+    const [activeTab, setActiveTab] = useState("all");
 
     useEffect(() => {
         setIsLoading(true);
@@ -21,41 +21,21 @@ const HomePage = () => {
         setIsLoading(false);
     }, []);
 
-    // dropdown change
-    //   function handleChange(e) {
-    //     const value = e.target.value;               // string
-    //     setSelectedGroupId(value);                  // store selection
-    //   }
-    const handleMemorizationClick = () => {
-        setSolutionId(""); // clear dropdown
-        const group20 = groups.find(g => g.id === 20);
-        if (group20) {
-            setItems(fullListItems.filter((x) => group20.cards.includes(x.id)));
-        }
-    };
-
-
     function handleChange(event) {
         const { value } = event.target;
 
-        // if (value === "memorization") {
-        //     // clear dropdown
-        //     setSelectedGroupId("");
+        const groupFilter = groups.find(g => g.id === parseInt(value));
+        if (groupFilter) {
+            setItems(fullListItems.filter((x) => groupFilter.cards.includes(x.id)));
+        }
+ 
+        if (value === "") {
 
-        //     // switch tab to memorization
-        //     setActiveTab("memorization");
-
-        //     // if you really want to bind it to a group id (20),
-        //     // you can setSelectedGroupId("20") here instead of ""
-        //     return;
-        // }
-
-        // otherwise just filter by group
-        setSelectedGroupId(value);
+            setItems(fullListItems);
+        }
+      
     }
-
-    // tabs click
-    // tabs click
+ 
     function handleTabChange(tab) {
         setActiveTab(tab);
 
