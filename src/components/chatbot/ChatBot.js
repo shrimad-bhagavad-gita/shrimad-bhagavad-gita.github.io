@@ -1,36 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ChatBot.css";
 
-const responses = {
-  hello: "Hi! How can I help you?",
-  "who are you": "I’m your friendly Gita Chatbot 🙏",
-  "bhagavad gita": "The Bhagavad Gita is a sacred Hindu scripture, part of the Mahabharata.",
-  bye: "Goodbye! Have a blessed day 🌸"
-};
-
-export default function ChatBot() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([]);
+const Chatbot = () => {
+    const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([
+    { sender: "bot", text: "🙏 Namaste! Ask me a question from the Bhagavad Gita." }
+  ]);
   const [input, setInput] = useState("");
-
+  const [qaData, setQaData] = useState({});
   const toggleChat = () => setIsOpen(!isOpen);
+  // Load qa.json on startup
+  useEffect(() => {
+    fetch("/qa.json")
+      .then((res) => res.json())
+      .then((data) => setQaData(data))
+      .catch((err) => console.error("Error loading qa.json:", err));
+  }, []);
 
-  const sendMessage = () => {
+  // Simple fuzzy matching (find closest key)
+  const findBestMatch = (question) => {
+    const lowerQ = question.toLowerCase();
+    let bestKey = null;
+    let bestScore = 0;
+
+    Object.keys(qaData).forEach((key) => {
+      let score = 0;
+      const words = key.split(" ");
+      words.forEach((w) => {
+        if (lowerQ.includes(w)) score++;
+      });
+      if (score > bestScore) {
+        bestScore = score;
+        bestKey = key;
+      }
+    });
+
+    return bestKey;
+  };
+
+  const handleSend = () => {
     if (!input.trim()) return;
 
-    const userMsg = { sender: "You", text: input };
-    let reply = "Sorry, I don’t understand that yet. 🙏";
+    const userMessage = { sender: "user", text: input };
+    setMessages((prev) => [...prev, userMessage]);
 
-    // Fuzzy matching: check if input contains any key
-    const lower = input.toLowerCase();
-    for (const key in responses) {
-      if (lower.includes(key)) {
-        reply = responses[key];
-        break;
-      }
-    }
+    const match = findBestMatch(input);
 
-    setMessages([...messages, userMsg, { sender: "Bot", text: reply }]);
+    const botReply = match
+      ? qaData[match]
+      : "Sorry, I don’t understand that yet. 🙏";
+
+    setMessages((prev) => [...prev, { sender: "bot", text: botReply }]);
     setInput("");
   };
 
@@ -45,21 +65,46 @@ export default function ChatBot() {
           <div className="chat-header">Chatbot</div>
           <div className="chat-messages">
             {messages.map((msg, i) => (
-              <div key={i}><strong>{msg.sender}:</strong> {msg.text}</div>
+              <div key={i} className={`chatbot-message ${msg.sender}`}>
+                {msg.text}
+              </div>
             ))}
           </div>
           <div className="chat-input">
             <input
               type="text"
               value={input}
-              placeholder="Ask something..."
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={e => e.key === "Enter" && sendMessage()}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask your question..."
             />
-            <button onClick={sendMessage}>Send</button>
+            <button onClick={handleSend}>Send</button>
           </div>
         </div>
       )}
     </div>
+
+
+    // <div className="chatbot">
+    //     <div className="chatbot-messages">
+    //       {messages.map((msg, i) => (
+    //         <div key={i} className={`chatbot-message ${msg.sender}`}>
+    //           {msg.text}
+
+    //         </div>
+    //       ))}
+    //     </div>
+    //     <div className="chatbot-input">
+    //       <input
+    //         type="text"
+    //         value={input}
+    //         onChange={(e) => setInput(e.target.value)}
+    //         placeholder="Ask your question..."
+    //       />
+    //       <button onClick={handleSend}>Send</button>
+    //     </div>
+
+    //   </div>
   );
-}
+};
+
+export default Chatbot;
