@@ -71,6 +71,10 @@ const ChatBot = () => {
   ]);
   const [input, setInput] = useState("");
   const viewRef = useRef(null);
+
+  const [lastGroup, setLastGroup] = useState(null);
+  const [lastIndex, setLastIndex] = useState(0);
+
   const toggleChat = () => setIsOpen(!isOpen);
 
   // Load the JSON from public/
@@ -185,9 +189,10 @@ const ChatBot = () => {
   };
 
   const formatCard = (c) => {
+    debugger;
     const code = c.code || (c.chapter && c.verse ? `BG ${c.chapter}.${c.verse}` : "BG");
     const meaning = c.meaning?.trim() || c.description?.trim() || "";
-    return `📖 ${code}\n${meaning}`;
+    return `📖 ${code}\n${c.description}\n${c.meaning}`;
   };
 
   const handleSend = () => {
@@ -199,6 +204,28 @@ const ChatBot = () => {
 
     if (!lookups) {
       setMessages((prev) => [...prev, { sender: "bot", text: "Loading data, please try again in a moment." }]);
+      return;
+    }
+
+    const q = normalize(userText);
+
+    // 👇 Check if user is asking for "more" or "another"
+    if (lastGroup && (q.includes("more") || q.includes("another") || q.includes("next"))) {
+      const cards = resolveCards(lastGroup);
+      if (lastIndex < cards.length) {
+        const card = cards[lastIndex];
+        setLastIndex(lastIndex + 1);
+
+        setMessages((prev) => [
+          ...prev,
+          { sender: "bot", text: `Here’s another verse from **${lastGroup.name}**:\n\n${formatCard(card)}` },
+        ]);
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          { sender: "bot", text: `🙏 I’ve already shared all verses I have for **${lastGroup.name}**.` },
+        ]);
+      }
       return;
     }
 
@@ -221,22 +248,30 @@ const ChatBot = () => {
       return;
     }
 
-    // Limit to first 8 for readability
-    const top = cards.slice(0, 8).map(formatCard).join("\n\n");
-    const more = cards.length > 8 ? `\n\n…and ${cards.length - 8} more.` : "";
+    //   // Limit to first 8 for readability
+    //   const top = cards.slice(0, 8).map(formatCard).join("\n\n");
+    //   const more = cards.length > 8 ? `\n\n…and ${cards.length - 8} more.` : "";
 
+    //   setMessages((prev) => [
+    //     ...prev,
+    //     { sender: "bot", text: `Here are verses for **${group.name}**:\n\n${top}${more}` },
+    //   ]);
+    // };
+    // Reset context
+    setLastGroup(group);
+    setLastIndex(1);
+
+    const firstCard = formatCard(cards[0]);
     setMessages((prev) => [
       ...prev,
-      { sender: "bot", text: `Here are verses for **${group.name}**:\n\n${top}${more}` },
+      { sender: "bot", text: `This sounds like **${group.name}**. Here’s a verse:\n\n${firstCard}` },
     ]);
   };
 
   return (
     <div>
-      {/* Floating Button */}
       <button className="chatbot-btn" onClick={toggleChat}>💬</button>
 
-      {/* Chat Window */}
       {isOpen && (
         <div className="chatbot-window">
           <div className="chat-header">Chatbot</div>
