@@ -11,6 +11,7 @@
     "auth0-lock": "^11.35.1",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
+    "fuse.js": "^7.1.0",
     "jwks-rsa": "^3.1.0",
     "multiselect-react-dropdown": "^2.0.13",
     "prop-types": "^15.8.1",

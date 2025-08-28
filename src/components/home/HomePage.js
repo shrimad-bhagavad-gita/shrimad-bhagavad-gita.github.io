@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import CharacterGrid from "../common/characters/CharacterGrid";
 import SelectInput from "../common/SelectInput";
 import data from "../bg-data.json";
+import ChatBot from "../chatbot/ChatBot";
 
 const HomePage = () => {
     const [solutionId, setSolutionId] = useState("");
@@ -110,7 +111,7 @@ const HomePage = () => {
                                                         defaultOption="Choose solution to your problem"
                                                         value={selectedGroupId}
                                                         options={groups
-                                                            .filter(g => g.id !== 21)  
+                                                            .filter(g => g.id !== 21)
                                                             .map(g => ({
                                                                 value: g.id,
                                                                 text: g.name
@@ -180,11 +181,14 @@ const HomePage = () => {
 
                         {/* Grid */}
                         <div className="row">
+                            <ChatBot />
                             <CharacterGrid isLoading={isLoading} items={displayedItems} />
                         </div>
+
                     </div>
                 </div>
             </div>
+            {/* <ChatBot /> */}
         </div>
     );
 };
