@@ -61,3 +61,26 @@
   padding: 10px 15px;
   cursor: pointer;
 }
+
+
+.chatbot-message {
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  line-height: 1.4;
+  white-space: pre-line; /* ✅ preserves line breaks */
+}
+
+.chatbot-message.bot {
+  background: #f1f1f1;
+  color: #333;
+  text-align: left;
+}
+
+.chatbot-message.user {
+  background: #0998b0;
+  color: white;
+  text-align: right;
+  margin-left: auto;
+  max-width: 80%;
+}

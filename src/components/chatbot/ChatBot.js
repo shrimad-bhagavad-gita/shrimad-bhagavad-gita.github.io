@@ -243,7 +243,9 @@ const ChatBot = () => {
           <div className="chat-messages">
             {messages.map((msg, i) => (
               <div key={i} className={`chatbot-message ${msg.sender}`}>
-                {msg.text}
+                {msg.text.split("\n").map((line, idx) => (
+                  <div key={idx}>{line}</div>
+                ))}
               </div>
             ))}
           </div>
@@ -253,12 +255,14 @@ const ChatBot = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask your question..."
+              onKeyDown={(e) => e.key === "Enter" && handleSend()}
             />
             <button onClick={handleSend}>Send</button>
           </div>
         </div>
       )}
     </div>
+
   );
 };
 

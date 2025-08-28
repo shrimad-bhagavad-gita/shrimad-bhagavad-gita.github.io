@@ -181,13 +181,14 @@ const HomePage = () => {
 
                         {/* Grid */}
                         <div className="row">
+                            <ChatBot />
                             <CharacterGrid isLoading={isLoading} items={displayedItems} />
                         </div>
 
                     </div>
                 </div>
             </div>
-            <ChatBot />
+            {/* <ChatBot /> */}
         </div>
     );
 };
