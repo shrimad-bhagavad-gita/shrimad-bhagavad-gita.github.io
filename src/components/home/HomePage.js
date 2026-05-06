@@ -4,6 +4,7 @@ import SelectInput from "../common/SelectInput";
 import data from "../bg-data.json";
 import ChatBot from "../chatbot/ChatBot";
 import sponsorQr from "../../img/sponsor-qr.jpeg";
+import { useFavorites } from "../../hooks/useFavorites";
 
 const HomePage = () => {
     const [solutionId, setSolutionId] = useState("");
@@ -15,6 +16,7 @@ const HomePage = () => {
     const [selectedGroupId, setSelectedGroupId] = useState("");
     const [activeTab, setActiveTab] = useState("all");
     const [showQr, setShowQr] = useState(false);
+    const { favorites, toggleFavorite, isFavorite, favoritesCount } = useFavorites();
 
     useEffect(() => {
         setIsLoading(true);
@@ -54,10 +56,16 @@ const HomePage = () => {
         } else if (tab === "all") {
             setItems(fullListItems); // reset
         } else if (tab === "favorite") {
-            setItems(fullListItems.filter(c => c.isFavorite));
+            setItems(fullListItems.filter(c => favorites.includes(c.id)));
         }
     }
 
+
+    useEffect(() => {
+        if (activeTab === "favorite") {
+            setItems(fullListItems.filter(c => favorites.includes(c.id)));
+        }
+    }, [favorites, activeTab, fullListItems]);
 
     const selectedGroupCardIds = useMemo(() => {
         const idNum = Number(selectedGroupId);
@@ -172,7 +180,7 @@ const HomePage = () => {
                                                     className={`nav-link ${activeTab === "favorite" ? "active" : ""}`}
                                                     onClick={() => handleTabChange("favorite")}
                                                 >
-                                                    My favorite <span className="badge badge-primary badge-pill">0</span>
+                                                    My favorite <span className="badge badge-primary badge-pill">{favoritesCount}</span>
                                                 </button>
                                             </li>
                                         </ul>
@@ -215,7 +223,12 @@ const HomePage = () => {
                         {/* Grid */}
                         <div className="row">
                             <ChatBot />
-                            <CharacterGrid isLoading={isLoading} items={displayedItems} />
+                            <CharacterGrid
+                                isLoading={isLoading}
+                                items={displayedItems}
+                                isFavorite={isFavorite}
+                                toggleFavorite={toggleFavorite}
+                            />
                         </div>
 
                     </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from "react-router-dom";
 import LogoImg from "../../img/logo3.png";
+import { useAuth } from "../AuthContext";
 
 const navLinks = [
     { to: "/",      label: "Home"  },
@@ -10,6 +11,7 @@ const navLinks = [
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const { user, loading, signInWithGoogle, signOutUser } = useAuth();
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 10);
@@ -42,6 +44,30 @@ const Header = () => {
                 ))}
             </ul>
 
+            {/* Auth — desktop */}
+            <div className="app-header-auth">
+                {!loading && (
+                    user ? (
+                        <div className="app-header-user">
+                            <img
+                                src={user.photoURL}
+                                alt={user.displayName}
+                                className="app-header-avatar"
+                                referrerPolicy="no-referrer"
+                            />
+                            <span className="app-header-username">{user.displayName}</span>
+                            <button className="app-header-signout" onClick={signOutUser}>
+                                Sign out
+                            </button>
+                        </div>
+                    ) : (
+                        <button className="app-header-signin" onClick={signInWithGoogle}>
+                            <i className="fab fa-google" /> Sign in
+                        </button>
+                    )
+                )}
+            </div>
+
             {/* Hamburger */}
             <button
                 className={`app-header-hamburger${menuOpen ? " open" : ""}`}
@@ -67,6 +93,35 @@ const Header = () => {
                             {label}
                         </NavLink>
                     ))}
+
+                    {!loading && (
+                        user ? (
+                            <>
+                                <div className="app-header-drawer-user">
+                                    <img
+                                        src={user.photoURL}
+                                        alt={user.displayName}
+                                        className="app-header-avatar"
+                                        referrerPolicy="no-referrer"
+                                    />
+                                    <span>{user.displayName}</span>
+                                </div>
+                                <button
+                                    className="app-header-drawer-link"
+                                    onClick={() => { signOutUser(); setMenuOpen(false); }}
+                                >
+                                    Sign out
+                                </button>
+                            </>
+                        ) : (
+                            <button
+                                className="app-header-drawer-link"
+                                onClick={() => { signInWithGoogle(); setMenuOpen(false); }}
+                            >
+                                <i className="fab fa-google" /> Sign in with Google
+                            </button>
+                        )
+                    )}
                 </div>
             )}
         </nav>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-const CharacterItem = ({ item }) => {
+const CharacterItem = ({ item, isFavorite, onToggleFavorite }) => {
   const [isPlaying, setIsPlaying] = React.useState(false);
 
   const handleSpeak = () => {
@@ -36,14 +36,24 @@ const CharacterItem = ({ item }) => {
           <Link to={`/cardview/${item.id}`} className="gita-card-btn">
             Details
           </Link>
-          <button
-            type="button"
-            onClick={handleSpeak}
-            className="gita-card-speak"
-            aria-label={isPlaying ? "Stop speech" : "Play speech"}
-          >
-            <i className={isPlaying ? "fa fa-stop" : "fa fa-play"}></i>
-          </button>
+          <div className="gita-card-actions">
+            <button
+              type="button"
+              onClick={() => onToggleFavorite(item.id)}
+              className={`gita-card-favorite${isFavorite ? " gita-card-favorite--active" : ""}`}
+              aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+            >
+              <i className={isFavorite ? "fas fa-heart" : "far fa-heart"} />
+            </button>
+            <button
+              type="button"
+              onClick={handleSpeak}
+              className="gita-card-speak"
+              aria-label={isPlaying ? "Stop speech" : "Play speech"}
+            >
+              <i className={isPlaying ? "fa fa-stop" : "fa fa-play"} />
+            </button>
+          </div>
         </div>
       </div>
     </div>
