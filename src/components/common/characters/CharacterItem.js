@@ -1,65 +1,50 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import CardImg from "../../../img/card-img.jpg";
 
 const CharacterItem = ({ item }) => {
   const [isPlaying, setIsPlaying] = React.useState(false);
 
   const handleSpeak = () => {
-    // Cancel any ongoing speech before starting
     window.speechSynthesis.cancel();
-
     if (!isPlaying) {
       const utterance = new SpeechSynthesisUtterance(item.meaning);
       window.speechSynthesis.speak(utterance);
-
       utterance.onend = () => setIsPlaying(false);
       setIsPlaying(true);
     } else {
-      window.speechSynthesis.cancel();
       setIsPlaying(false);
     }
   };
 
   return (
-    <div className="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-      <div className="card card-figure has-hoverable">
-        <figure className="figure">
-          <div className="figure-img">
-            <div style={{ height: '10vw' }}>
-              <h6 className="figure-title">{item.name}</h6>
-              <p className="text-muted mb-0">
-                <small>{item.description}</small>
-                <br /><br />
-                <small><b>Meaning</b> - <br />{item.meaning}</small>
-              </p>
-            </div>
-            <div className="figure-action">
-              <Link to={`/cardview/${item.id}`} className="btn btn-block btn-sm btn-primary">
-                Details
-              </Link>
-            </div>
+    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+      <div className="gita-card">
+        <div className="gita-card-header">
+          <span className="gita-card-badge">{item.code}</span>
+          <h5 className="gita-card-title">{item.name}</h5>
+        </div>
+        <div className="gita-card-body">
+          {item.description && (
+            <p className="gita-card-desc">{item.description}</p>
+          )}
+          <div className="gita-card-meaning">
+            <span className="gita-card-meaning-label">Meaning</span>
+            <p className="gita-card-meaning-text">{item.meaning}</p>
           </div>
-          <figcaption className="figure-caption">
-            <ul className="list-inline d-flex text-muted mb-0">
-              <li className="list-inline-item text-truncate mr-auto">
-                <a href={CardImg} download>
-                  <span className="badge badge-info">{item.code}</span>
-                </a>
-              </li>
-
-              <button
-                type="button"
-                onClick={handleSpeak}
-                className="btn btn-link p-0"
-                aria-label={isPlaying ? "Stop speech" : "Play speech"}
-              >
-                <i className={isPlaying ? "fa fa-stop-circle-o" : "fa fa-play"}></i>
-              </button>
-
-            </ul>
-          </figcaption>
-        </figure>
+        </div>
+        <div className="gita-card-footer">
+          <Link to={`/cardview/${item.id}`} className="gita-card-btn">
+            Details
+          </Link>
+          <button
+            type="button"
+            onClick={handleSpeak}
+            className="gita-card-speak"
+            aria-label={isPlaying ? "Stop speech" : "Play speech"}
+          >
+            <i className={isPlaying ? "fa fa-stop" : "fa fa-play"}></i>
+          </button>
+        </div>
       </div>
     </div>
   );

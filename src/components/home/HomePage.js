@@ -161,7 +161,7 @@ const HomePage = () => {
                                                     onClick={() => handleTabChange("memorization")}
                                                 // onClick={() => handleMemorizationClick()}
                                                 >
-                                                    For memorization <span className="badge badge-primary badge-pill">101</span>
+                                                    For memorization <span className="badge badge-primary badge-pill">140</span>
                                                 </button>
                                             </li>
                                             <li className="nav-item">
