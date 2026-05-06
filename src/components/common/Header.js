@@ -20,12 +20,6 @@ export default class Header extends Component {
                         <li className="nav-item">
                             <Link to="/" className="nav-link" activestyle={activeStyle}>Home</Link>
                         </li>
-                        {/* <li className="nav-item">
-                            <Link to="/cards" className="nav-link" activestyle={activeStyle}>Cards</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/groups" className="nav-link" activestyle={activeStyle}>Groups</Link>
-                        </li> */}
                         <li className="nav-item">
                             <Link to="/about" className="nav-link" activestyle={activeStyle}>About</Link>
                         </li>
