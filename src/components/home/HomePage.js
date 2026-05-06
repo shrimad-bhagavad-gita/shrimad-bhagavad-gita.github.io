@@ -186,9 +186,7 @@ const HomePage = () => {
                             <div className="col-xl-12">
                                 <div className="sponsor-banner">
                                     <div className="sponsor-banner-left">
-                                        <div className="sponsor-banner-icon">
-                                            <i className="fa fa-heart" />
-                                        </div>
+                                        <i className="fa fa-heart sponsor-banner-icon" />
                                         <div>
                                             <span className="sponsor-banner-title">Support this project</span>
                                             <span className="sponsor-banner-sub">Help keep this free for everyone</span>
