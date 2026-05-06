@@ -3,6 +3,7 @@ import CharacterGrid from "../common/characters/CharacterGrid";
 import SelectInput from "../common/SelectInput";
 import data from "../bg-data.json";
 import ChatBot from "../chatbot/ChatBot";
+import sponsorQr from "../../img/sponsor-qr.jpeg";
 
 const HomePage = () => {
     const [solutionId, setSolutionId] = useState("");
@@ -13,6 +14,7 @@ const HomePage = () => {
     const [query, setQuery] = useState("");
     const [selectedGroupId, setSelectedGroupId] = useState("");
     const [activeTab, setActiveTab] = useState("all");
+    const [showQr, setShowQr] = useState(false);
 
     useEffect(() => {
         setIsLoading(true);
@@ -176,6 +178,39 @@ const HomePage = () => {
                                         </ul>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        {/* Sponsor Banner */}
+                        <div className="row mb-3">
+                            <div className="col-xl-12">
+                                <div className="sponsor-banner">
+                                    <div className="sponsor-banner-left">
+                                        <div className="sponsor-banner-icon">
+                                            <i className="fa fa-heart" />
+                                        </div>
+                                        <div>
+                                            <span className="sponsor-banner-title">Support this project</span>
+                                            <span className="sponsor-banner-sub">Help keep this free for everyone</span>
+                                        </div>
+                                    </div>
+                                    <button
+                                        className="sponsor-banner-btn"
+                                        onClick={() => setShowQr(v => !v)}
+                                    >
+                                        <i className={`fa ${showQr ? 'fa-chevron-up' : 'fa-qrcode'}`} />
+                                        {showQr ? 'Hide' : 'Sponsor'}
+                                    </button>
+                                </div>
+
+                                {showQr && (
+                                    <div className="sponsor-qr-dropdown">
+                                        <img src={sponsorQr} alt="Sponsor QR" className="sponsor-qr-img" />
+                                        <p className="sponsor-qr-note">
+                                            Scan with any UPI app · Google Pay · PhonePe · Paytm
+                                        </p>
+                                    </div>
+                                )}
                             </div>
                         </div>
 
