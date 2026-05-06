@@ -25,16 +25,16 @@ const HomePage = () => {
     function handleChange(event) {
         const { value } = event.target;
 
+        setSelectedGroupId(value);
+
         const groupFilter = groups.find(g => g.id === parseInt(value));
         if (groupFilter) {
             setItems(fullListItems.filter((x) => groupFilter.cards.includes(x.id)));
         }
 
         if (value === "") {
-
             setItems(fullListItems);
         }
-
     }
 
     function handleTabChange(tab) {
