@@ -45,7 +45,7 @@ const Header = () => {
             </ul>
 
             {/* Auth — desktop */}
-            <div className="app-header-auth">
+            {/* <div className="app-header-auth">
                 {!loading && (
                     user ? (
                         <div className="app-header-user">
@@ -66,7 +66,7 @@ const Header = () => {
                         </button>
                     )
                 )}
-            </div>
+            </div> */}
 
             {/* Hamburger */}
             <button
