@@ -6174,6 +6174,180 @@ Vertical Timeline - by CodyHouse.co
     color: #9295b0;
 }
 
+/* ==========================================================================
+   App Header
+   ========================================================================== */
+
+.app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 60px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    gap: 24px;
+    border-bottom: 1px solid #ebebf7;
+    transition: box-shadow 0.25s ease;
+}
+
+.app-header--scrolled {
+    box-shadow: 0 2px 16px rgba(89, 105, 255, 0.1);
+    border-bottom-color: transparent;
+}
+
+/* Brand */
+
+.app-header-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none !important;
+    flex-shrink: 0;
+}
+
+.app-header-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+.app-header-brand-text {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    background: linear-gradient(135deg, #5969ff, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    white-space: nowrap;
+}
+
+/* Desktop nav */
+
+.app-header-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.app-header-link {
+    display: block;
+    padding: 6px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #71748d;
+    border-radius: 8px;
+    text-decoration: none !important;
+    transition: color 0.18s, background 0.18s;
+}
+
+.app-header-link:hover {
+    color: #5969ff;
+    background: #f0f0ff;
+}
+
+.app-header-link--active {
+    color: #5969ff !important;
+    background: #eeeeff;
+    font-weight: 600;
+}
+
+/* Hamburger */
+
+.app-header-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+    border-radius: 8px;
+    transition: background 0.18s;
+}
+
+.app-header-hamburger:hover {
+    background: #f0f0ff;
+}
+
+.app-header-hamburger span {
+    display: block;
+    height: 2px;
+    background: #5969ff;
+    border-radius: 2px;
+    transition: all 0.22s ease;
+}
+
+.app-header-hamburger.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.app-header-hamburger.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.app-header-hamburger.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile drawer */
+
+.app-header-drawer {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-bottom: 1px solid #ebebf7;
+    box-shadow: 0 8px 24px rgba(89, 105, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 8px 16px 12px;
+    animation: drawerSlide 0.2s ease;
+}
+
+@keyframes drawerSlide {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.app-header-drawer-link {
+    display: block;
+    padding: 10px 12px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #71748d;
+    border-radius: 8px;
+    text-decoration: none !important;
+    transition: color 0.18s, background 0.18s;
+}
+
+.app-header-drawer-link:hover {
+    color: #5969ff;
+    background: #f0f0ff;
+}
+
+@media (max-width: 768px) {
+    .app-header-nav {
+        display: none;
+    }
+    .app-header-hamburger {
+        display: flex;
+    }
+}
+
 .dd3-handle {
     position: absolute;
     margin: 0;
